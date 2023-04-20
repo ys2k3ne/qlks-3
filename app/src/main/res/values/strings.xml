@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">EasyHotel</string>
+    <string name="menu_search" />
+    <string name="menu_refresh" />
+    <string name="price_prompt" />
+    <string name="rating_prompt" />
+    <string name="amenities_prompt" />
+</resources>

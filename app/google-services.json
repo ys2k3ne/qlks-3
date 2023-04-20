@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "236487193470",
+    "firebase_url": "https://qlks-3-aef3c-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "qlks-3-aef3c",
+    "storage_bucket": "qlks-3-aef3c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:236487193470:android:436cd3f7990b4402dbf92f",
+        "android_client_info": {
+          "package_name": "com.example.easyhotel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "236487193470-2gnr971oma2j2ad8orbfkkj31cgun2e5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW5oBhDJZf9NW_bYq1jRuTv40OXziszAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "236487193470-2gnr971oma2j2ad8orbfkkj31cgun2e5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
