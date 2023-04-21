@@ -2,55 +2,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="16dp">
-
-    <ImageView
-        android:id="@+id/img_room"
-        android:layout_width="96dp"
-        android:layout_height="96dp" />
-
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/img_room"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_launcher_background" />
 
-        <TextView
-            android:id="@+id/tv_room_name"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Phòng tập gym"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <RatingBar
-            android:id="@+id/rating_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            android:rating="4.5"/>
+            <TextView
+                android:id="@+id/tv_room_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên khách sạn"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/hotel_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Địa chỉ khách sạn" />
+
+            <RatingBar
+                android:id="@+id/rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:rating="4"
+                android:stepSize="0.5" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_room_price"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Giá: 200.000 VND/giờ"
-            android:textSize="14sp"/>
-
-        <TextView
-            android:id="@+id/tv_room_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Phòng tập gym đầy đủ máy móc, phù hợp cho việc tập luyện thể thao"
-            android:textSize="14sp"/>
+            android:layout_gravity="center_vertical"
+            android:text="$100"
+            android:textSize="20sp" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_book"
-        android:layout_width="91dp"
-        android:layout_height="wrap_content"
-        android:text="Book" />
-
 </LinearLayout>

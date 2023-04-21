@@ -8,45 +8,35 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.easyhotel.R
-import com.squareup.picasso.Picasso
 
-class RoomAdapter(private val rooms: List<Room>) : RecyclerView.Adapter<RoomAdapter.ViewHolder>() {
-    // code adapter lắng nghe sự kiện
-    // tạo class viewholder
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class RoomAdapter (var ds:List<Room>): RecyclerView.Adapter<RoomAdapter.RoomHolderAdapter>(){
+    class RoomHolderAdapter(itemview : View): RecyclerView.ViewHolder(itemview){
+        private val roomName :TextView = itemview.findViewById(R.id.tv_room_name)
+        private val roomPrice :TextView = itemview.findViewById(R.id.tv_room_price)
+        private val roomImg :ImageView = itemview.findViewById(R.id.img_room)
+        private val hotelAddress: TextView = itemview.findViewById(R.id.hotel_address)
+        private val roomRate :RatingBar = itemview.findViewById(R.id.rating_bar)
 
-        val roomName: TextView =itemView.findViewById(R.id.tv_room_name)
-        val roomPrice: TextView =itemView.findViewById(R.id.tv_room_price)
-        val roomImg: ImageView =itemView.findViewById(R.id.img_room)
-        val roomRate: RatingBar =itemView.findViewById(R.id.rating_bar)
-    }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_room, parent, false)
-        return ViewHolder(view)
-    }
+        fun bind(rooms: Room) {
+            roomName.text = rooms.roomName
+            roomPrice.text = rooms.roomPrice.toString()
+            roomImg.setImageResource(rooms.roomImage)
+            hotelAddress.text = rooms.hotelAddress
+            roomRate.rating = rooms.roomRating
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val room = rooms[position]
-
-
-        Picasso.get().load(room.roomImage).into(holder.roomImg)
-        holder.roomName.text = room.roomName
-        holder.roomPrice.text = room.roomPrice.toString()
-        holder.roomRate.rating = room.roomRating
+        }
     }
 
-    override fun getItemCount() : Int{
-        return rooms.size
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomHolderAdapter {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_room, parent, false    )
+        return RoomHolderAdapter(view)
     }
 
-//    inner class RoomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//
-//        fun bind(room: Room) {
-//            // Cập nhật dữ liệu cho view tương ứng với phòng
-//            itemView.findViewById<TextView>(R.id.tv_room_name).text = room.name
-//            itemView.findViewById<TextView>(R.id.tv_room_price).text = room.price.toString()
-//            itemView.findViewById<ImageView>(R.id.img_room).setImageResource(room.imageResource)
-//            itemView.findViewById<RatingBar>(R.id.rating_bar).rating = room.rating
-//        }
-//    }
+    override fun onBindViewHolder(holder: RoomHolderAdapter, position: Int) {
+        holder.bind(ds[position])
+    }
+
+    override fun getItemCount(): Int {
+        return ds.size
+    }
 }
