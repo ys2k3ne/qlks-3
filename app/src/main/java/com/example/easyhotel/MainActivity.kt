@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.bookNowButton.setOnClickListener {
             // Xử lý sự kiện khi nút đặt phòng nhanh được bấm
+            val intent = Intent(this,InsertActivity::class.java)
+            startActivity(intent)
         }
         binding.drawerLayout
         binding.searchButton.setOnClickListener {
