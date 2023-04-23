@@ -17,8 +17,11 @@
 
     <EditText
         android:id="@+id/edtUserName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:background="@drawable/btn"
+        android:elevation="5dp"
         android:layout_below="@id/textViewTitle"
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
@@ -30,8 +33,11 @@
 
     <EditText
         android:id="@+id/editTextPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:background="@drawable/btn"
+        android:elevation="5dp"
         android:layout_below="@id/edtUserName"
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"

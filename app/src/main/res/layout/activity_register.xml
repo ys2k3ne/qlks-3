@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:text="@string/create_your_n_account"
@@ -21,15 +22,29 @@
         android:textStyle="bold" />
 
 
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/ic_logo_round"
+        android:padding="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_logoo" />
+
     <EditText
         android:id="@+id/editTextName"
         android:layout_width="350dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/btn"
         android:elevation="5dp"
         android:hint="Username"
+        android:textColor="@color/colorPrimaryDark2"
         android:inputType="textEmailAddress"
         android:paddingStart="15dp"
         android:autofillHints="" />
@@ -44,6 +59,7 @@
         android:elevation="5dp"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
+        android:textColor="@color/colorPrimaryDark2"
         android:paddingStart="15dp"
         android:autofillHints=""
         tools:ignore="RtlSymmetry" />
@@ -59,6 +75,7 @@
         android:elevation="5dp"
         android:hint="@string/password"
         android:inputType="textPassword"
+        android:textColor="@color/colorPrimaryDark2"
         android:paddingStart="15dp"
         tools:ignore="RtlSymmetry" />
 
@@ -73,6 +90,7 @@
         android:hint="@string/phone"
         android:inputType="phone"
         android:paddingStart="15dp"
+        android:textColor="@color/colorPrimaryDark2"
         android:autofillHints=""
         tools:ignore="RtlSymmetry,TextFields" />
 
@@ -123,4 +141,5 @@
             android:text="@string/i_u_kho_n"
             android:textColor="@color/colorPrimary" />
     </LinearLayout>
+
 </LinearLayout>
