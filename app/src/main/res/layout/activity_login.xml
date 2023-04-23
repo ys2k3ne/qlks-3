@@ -16,14 +16,14 @@
         android:layout_marginBottom="24dp" />
 
     <EditText
-        android:id="@+id/editTextEmail"
+        android:id="@+id/edtUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewTitle"
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="48dp"
-        android:hint="Email"
+        android:hint="Tên đăng nhập"
         android:textSize="24sp"
         android:inputType="textEmailAddress"
         android:autofillHints="" />
@@ -32,7 +32,7 @@
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextEmail"
+        android:layout_below="@id/edtUserName"
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="48dp"

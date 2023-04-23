@@ -2,6 +2,7 @@ package com.example.easyhotel
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -9,9 +10,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.easyhotel.Adapter.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 class RegisterActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var database: DatabaseReference
 
     private lateinit var editTextName: EditText
     private lateinit var editTextEmail: EditText
@@ -24,6 +29,9 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance().reference
+
         editTextName = findViewById(R.id.editTextName)
         editTextEmail = findViewById(R.id.editTextEmail)
         editTextPassword = findViewById(R.id.editTextPassword)
@@ -32,55 +40,94 @@ class RegisterActivity : AppCompatActivity() {
         textViewLogin = findViewById(R.id.textViewLogin)
 
         buttonRegister.setOnClickListener {
-            // Xử lý đăng ký tài khoản ở đây
-            val name = editTextName.text.toString()
-            val email = editTextEmail.text.toString()
-            val password = editTextPassword.text.toString()
-            val phone = editTextPhone.text.toString()
-
-            // Kiểm tra dữ liệu có hợp lệ hay không
-            if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && phone.isNotEmpty()) {
-                // Đăng ký tài khoản bằng email và password sử dụng Firebase Authentication
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            // Lưu thông tin người dùng vào csdl Firebase Realtime Database
-                            val userId = FirebaseAuth.getInstance().currentUser?.uid
-                            val database = FirebaseDatabase.getInstance().reference
-                            val user = User(name, email, password, phone)
-                            database.child("users").child(userId!!).setValue(user)
-                                .addOnCompleteListener { task ->
-                                    if (task.isSuccessful) {
-                                        // Đăng ký tài khoản thành công, chuyển đến màn hình chính
-                                        startActivity(Intent(this, MainActivity::class.java))
-                                        finish()
-                                    } else {
-                                        // Lỗi khi lưu thông tin người dùng vào csdl
-                                        Toast.makeText(this, "Lỗi khi lưu thông tin người dùng", Toast.LENGTH_SHORT).show()
-                                    }
-                                }
-                        } else {
-                            // Lỗi khi đăng ký tài khoản
-                            Toast.makeText(this, "Lỗi khi đăng ký tài khoản", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-            } else {
-                // Hiển thị thông báo lỗi khi dữ liệu không hợp lệ
-                Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
-            }
-
+            registerUser()
         }
 
         textViewLogin.setOnClickListener {
-            // Chuyển sang màn hình đăng nhập ở đây
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
+    }
+
+    private fun registerUser() {
+        val name = editTextName.text.toString().trim()
+        val email = editTextEmail.text.toString().trim()
+        val password = editTextPassword.text.toString().trim()
+        val phone = editTextPhone.text.toString().trim()
+
+        if (name.isEmpty()) {
+            editTextName.error = "Tên không được để trống"
+            editTextName.requestFocus()
+            return
         }
 
-//        textViewForgotPassword.setOnClickListener {
-//            // Xử lý quên mật khẩu ở đây
-//        }
-//
-//        textViewTermsAndConditions.setOnClickListener {
-//            // Xử lý điều khoản sử dụng ở đây
-//        }
+        if (email.isEmpty()) {
+            editTextEmail.error = "Email không được để trống"
+            editTextEmail.requestFocus()
+            return
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextEmail.error = "Email không hợp lệ"
+            editTextEmail.requestFocus()
+            return
+        }
+
+        if (password.isEmpty()) {
+            editTextPassword.error = "Mật khẩu không được để trống"
+            editTextPassword.requestFocus()
+            return
+        }
+
+        if (password.length < 6) {
+            editTextPassword.error = "Mật khẩu phải có ít nhất 6 kí tự"
+            editTextPassword.requestFocus()
+            return
+        }
+
+        if (phone.isEmpty()) {
+            editTextPhone.error = "Số điện thoại không được để trống"
+            editTextPhone.requestFocus()
+            return
+        }
+
+        if (!Patterns.PHONE.matcher(phone).matches()) {
+            editTextPhone.error = "Số điện thoại không hợp lệ"
+            editTextPhone.requestFocus()
+            return
+        }
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    val userId = user?.uid ?: ""
+
+                    val userInfo = User(userId, name, email, phone, password)
+
+                    database.child("users").child(userId).setValue(userInfo)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Toast.makeText(
+                                    this, "Đăng ký thành công",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                startActivity(Intent(this, MainActivity::class.java))
+                                finish()
+                            } else {
+                                Toast.makeText(
+                                    this, "Lỗi đăng ký",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+
+                } else {
+                    Toast.makeText(
+                        this, "Đăng ký thất bại",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
     }
 }
