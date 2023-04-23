@@ -69,12 +69,14 @@ class RoomListActivity : AppCompatActivity() {
                         override fun onItemClick(position: Int) {
                             val intent = Intent(this@RoomListActivity, DetailsActivity::class.java)
                             // put Extra
-                            intent.putExtra("roomId", ds[position].roomId)
-                            intent.putExtra("roomName", ds[position].roomName)
-                            intent.putExtra("hotelAddress", ds[position].hotelAddress)
-                            intent.putExtra("roomPrice", ds[position].roomPrice)
-                            intent.putExtra("roomRating", ds[position].roomRating)
-                            intent.putExtra("roomImage", ds[position].roomImage)
+                            val bundle = Bundle()
+                            bundle.putString("roomId", ds[position].roomId)
+                            bundle.putString("roomName", ds[position].roomName)
+                            bundle.putString("hotelAddress", ds[position].hotelAddress)
+                            bundle.putString("roomPrice", ds[position].roomPrice)
+                            bundle.putFloat("roomRating", ds[position].roomRating)
+                            bundle.putString("roomImage", ds[position].roomImage)
+                            intent.putExtras(bundle)
                             startActivity(intent)
                         }
                     })

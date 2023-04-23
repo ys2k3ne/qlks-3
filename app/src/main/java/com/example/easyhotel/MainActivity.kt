@@ -3,62 +3,103 @@ package com.example.easyhotel
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.easyhotel.Adapter.HotDeal
 import com.example.easyhotel.Adapter.HotDealsAdapter
 import com.example.easyhotel.Adapter.Room
 import com.example.easyhotel.databinding.ActivityMainBinding
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.DatabaseReference
 import java.util.*
 import kotlin.collections.ArrayList
+import androidx.appcompat.widget.Toolbar
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var ds:ArrayList<Room>
+    private lateinit var ds: ArrayList<Room>
     private lateinit var dbRef: DatabaseReference
     private lateinit var binding: ActivityMainBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.bookNowButton.setOnClickListener {
-            // Xử lý sự kiện khi nút đặt phòng nhanh được bấm
-            val intent = Intent(this,InsertActivity::class.java)
-            startActivity(intent)
-        }
-        binding.drawerLayout
-        binding.searchButton.setOnClickListener {
-            val intent = Intent(this,RoomListActivity::class.java)
-            startActivity(intent)
-            // Xử lý sự kiện khi nút tìm kiếm được bấm
-        }
-        binding.historyButton.setOnClickListener {
-            // Xử lý sự kiện khi nút lịch sử được bấm
-        }
-        // Đặt sự kiện cho thanh công cụ
-        // Đăng ký thanh công cụ với activity
-//        setSupportActionBar(binding.toolbar)
-//
-//// Đặt tiêu đề cho thanh công cụ
-//        supportActionBar?.title = "EasyHotel"
-//
-//// Hiển thị nút home để người dùng có thể trở về activity trước đó
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//
-//// Xử lý sự kiện khi nút home được bấm
-//        binding.toolbar.setNavigationOnClickListener {
-//            onBackPressed()
-//        }
+        // Set up action bar
+        setSupportActionBar(binding.toolbar)
 
-        binding.navView.setNavigationItemSelectedListener { menuItem ->
-            // Xử lý sự kiện khi người dùng chọn một mục trong thanh menu
-            true
+        // Đăng ký sự kiện click cho nút back
+        binding.toolbar.setNavigationOnClickListener {
+            onBackPressed()
         }
-        // Đặt sự kiện cho RecyclerView
+
+        // Đăng ký sự kiện cho RecyclerView
         binding.hotDealsRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.hotDealsRecyclerView.adapter = HotDealsAdapter(getHotDeals())
+
+        // Đăng ký sự kiện click cho nút đặt phòng nhanh
+        binding.bookNowButton.setOnClickListener {
+            val intent = Intent(this, InsertActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Đăng ký sự kiện click cho nút tìm kiếm
+        binding.searchButton.setOnClickListener {
+            val intent = Intent(this, RoomListActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Đăng ký sự kiện click cho nút lịch sử đặt phòng
+        binding.historyButton.setOnClickListener {
+            val intent = Intent(this, LoginSignupActivity::class.java)
+            startActivity(intent)
+            // Xử lý sự kiện khi nút lịch sử được bấm
+        }
+
+        // Đăng ký sự kiện click cho thanh menu
+        val navView: NavigationView = findViewById(R.id.nav_view)
+        navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menu_search -> {
+                    // Xử lý sự kiện khi người dùng chọn item Search
+                    Toast.makeText(this, "Search selected", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.menu_refresh -> {
+                    // Xử lý sự kiện khi người dùng chọn item Refresh
+                    Toast.makeText(this, "Refresh selected", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                // Thêm các item khác tương tự ở đây
+                else -> false
+            }
+        }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.nav_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.menu_search -> {
+                Toast.makeText(this, "Search selected", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.menu_refresh -> {
+                Toast.makeText(this, "Refresh selected", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     // Hàm lấy danh sách phòng khách sạn đang hot hoặc các chương trình khuyến mãi
     private fun getHotDeals(): List<HotDeal> {
         val hotDeals = ArrayList<HotDeal>()

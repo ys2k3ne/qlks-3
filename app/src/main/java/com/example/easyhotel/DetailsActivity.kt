@@ -16,7 +16,6 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun setValueToView() {
-        val roomId = intent.getStringExtra("roomId")
         val roomName = intent.getStringExtra("roomName")
         val hotelAddress = intent.getStringExtra("hotelAddress")
         val roomPrice = intent.getStringExtra("roomPrice")
@@ -26,6 +25,7 @@ class DetailsActivity : AppCompatActivity() {
         binding.hotelNameTextView.text = roomName
         binding.hotelAddress.text = hotelAddress
         binding.hotelPriceTextView.text = roomPrice
+        binding.hotelRatingBar.rating = roomRating
 
         if (roomImage != null) {
             // Load image from Firebase URL using Picasso
@@ -38,6 +38,7 @@ class DetailsActivity : AppCompatActivity() {
             binding.hotelImg.setImageResource(R.drawable.pic1)
         }
     }
+
 
 
     // set giá trị cho các thành phần khác
