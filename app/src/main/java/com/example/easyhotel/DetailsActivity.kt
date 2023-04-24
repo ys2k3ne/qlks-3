@@ -66,16 +66,19 @@ class DetailsActivity : AppCompatActivity() {
 
     }
 
-    // Hàm xử lý sự kiện khi người dùng ấn vào nút "Đặt phòng"
+    /// Hàm xử lý sự kiện khi người dùng ấn vào nút "Đặt phòng"
     fun bookRoom(view: View) {
         // Lấy thông tin của phòng từ Intent gửi đến DetailActivity
         val room: Room? = intent.getSerializableExtra("hotels") as? Room
         val roomId = room?.roomId ?: ""
         val roomName = room?.roomName ?: ""
 
-        // Tạo một đối tượng BookingDialogFragment và hiển thị
-        val bookingDialogFragment = BookingDialogFragment.newInstance(roomId, roomName)
-        bookingDialogFragment.show(supportFragmentManager, "BookingDialog")
+        // Chuyển đến trang PickDateActivity
+        val intent = Intent(this, PickDateActivity::class.java)
+        intent.putExtra("roomId", roomId)
+        intent.putExtra("roomName", roomName)
+        startActivity(intent)
     }
+
 
 }

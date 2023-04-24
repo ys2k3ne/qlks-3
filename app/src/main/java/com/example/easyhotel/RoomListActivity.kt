@@ -12,6 +12,9 @@ import com.example.easyhotel.Adapter.RoomAdapter.onItemClickListener
 import com.example.easyhotel.databinding.ActivityRoomListBinding
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 private lateinit var binding: ActivityRoomListBinding
 
@@ -32,6 +35,39 @@ class RoomListActivity : AppCompatActivity() {
 
         ds = ArrayList<Room>() // Khởi tạo biến ds với một danh sách rỗng
         GetThongTin()
+
+        // Lấy reference đến node "bookedRooms" trong database
+        val bookedRoomsRef = FirebaseDatabase.getInstance().getReference("bookedRooms")
+
+        // Lấy ngày hiện tại
+        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+
+        val MAX_ROOM_BOOKED = 10
+
+        // Kiểm tra số lượng phòng đã đặt trong ngày đó
+        bookedRoomsRef.child(currentDate).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val bookedRoomCount = snapshot.getValue(Int::class.java) ?: 0
+
+                // Nếu số lượng phòng đã đặt chưa đạt tối đa
+                if (bookedRoomCount < MAX_ROOM_BOOKED) {
+                    // Đặt phòng và cập nhật lại số lượng phòng đã đặt
+                    val newBookedRoomCount = bookedRoomCount + 1
+                    bookedRoomsRef.child(currentDate).setValue(newBookedRoomCount)
+
+                    // Thực hiện đặt phòng ở đây
+                    // ...
+                } else {
+                    // Hiển thị thông báo cho người dùng biết rằng không thể đặt thêm phòng
+                    // ...
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Xử lý lỗi nếu có
+                // ...
+            }
+        })
     }
 
 

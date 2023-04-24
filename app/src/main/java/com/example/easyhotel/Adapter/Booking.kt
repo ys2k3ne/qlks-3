@@ -1,12 +1,10 @@
 package com.example.easyhotel.Adapter
-
+import java.util.*
 data class Booking(
-    val id: String?,
-    val roomType: String?,
-    val checkIn: String?,
-    val checkOut: String?,
-    val price: Double?
-) {
-    constructor() : this("", "", "", "", 0.0)
-}
+    val bookingId: String,
+    val roomId: String,
+    val roomName: String,
+    val checkInDate: Date,
+    val checkOutDate: Date
+)
 

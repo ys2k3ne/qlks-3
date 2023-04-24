@@ -15,4 +15,7 @@
     <string name="ng_nh_p">Đăng nhập</string>
     <string name="ng_k_t_i_kho_n_m_i"><![CDATA[>Đăng ký tài khoản mới]]></string>
     <string name="register">register</string>
+    <string name="check_in_date">Check in date</string>
+    <string name="check_out_date">check out date</string>
+    <string name="confirm">Confirm</string>
 </resources>
