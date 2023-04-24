@@ -68,11 +68,9 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "Search selected", Toast.LENGTH_SHORT).show()
                     true
                 }
-                R.id.menu_refresh -> {
+                R.id.menu_person -> {
                     val intent = Intent(this, LoginSignupActivity::class.java)
                     startActivity(intent)
-                    // Xử lý sự kiện khi người dùng chọn item Refresh
-                    Toast.makeText(this, "Refresh selected", Toast.LENGTH_SHORT).show()
                     true
                 }
                 // Thêm các item khác tương tự ở đây
@@ -94,8 +92,9 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Search selected", Toast.LENGTH_SHORT).show()
                 true
             }
-            R.id.menu_refresh -> {
-                Toast.makeText(this, "Refresh selected", Toast.LENGTH_SHORT).show()
+            R.id.menu_person -> {
+                val intent = Intent(this, LoginSignupActivity::class.java)
+                startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)

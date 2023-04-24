@@ -10,6 +10,7 @@ import com.example.easyhotel.Adapter.Room
 import com.example.easyhotel.Adapter.RoomAdapter
 import com.example.easyhotel.Adapter.RoomAdapter.onItemClickListener
 import com.example.easyhotel.databinding.ActivityRoomListBinding
+import com.google.firebase.FirebaseApp
 import com.google.firebase.database.*
 
 private lateinit var binding: ActivityRoomListBinding
@@ -24,6 +25,7 @@ class RoomListActivity : AppCompatActivity() {
         binding = ActivityRoomListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        FirebaseApp.initializeApp(this)
         // Khởi tạo Adapter
         binding.roomList.layoutManager = LinearLayoutManager(this)
         binding.roomList.setHasFixedSize(true)
