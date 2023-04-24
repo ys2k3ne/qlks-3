@@ -69,6 +69,8 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu_refresh -> {
+                    val intent = Intent(this, LoginSignupActivity::class.java)
+                    startActivity(intent)
                     // Xử lý sự kiện khi người dùng chọn item Refresh
                     Toast.makeText(this, "Refresh selected", Toast.LENGTH_SHORT).show()
                     true

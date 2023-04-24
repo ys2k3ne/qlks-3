@@ -1,5 +1,6 @@
 package com.example.easyhotel.Adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,11 +8,12 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.easyhotel.DetailsActivity
 import com.example.easyhotel.LSInterface
 import com.example.easyhotel.R
 import com.squareup.picasso.Picasso
 
-class RoomAdapter(var ds: List<Room>, private val onClickRoom: LSInterface) : RecyclerView.Adapter<RoomAdapter.RoomHolderAdapter>() {
+class RoomAdapter(private val ds: List<Room>, private val onClickRoom: LSInterface) : RecyclerView.Adapter<RoomAdapter.RoomHolderAdapter>() {
     private lateinit var mListener: onItemClickListener
     interface onItemClickListener{
         fun onItemClick(position: Int)
@@ -19,17 +21,29 @@ class RoomAdapter(var ds: List<Room>, private val onClickRoom: LSInterface) : Re
     fun setOnItemClickListener (clickListener: onItemClickListener){
         mListener = clickListener
     }
-    class RoomHolderAdapter(itemview: View, clickListener: onItemClickListener) : RecyclerView.ViewHolder(itemview) {
+    inner class RoomHolderAdapter(itemview: View, clickListener: onItemClickListener) : RecyclerView.ViewHolder(itemview) {
+        val roomName: TextView = itemview.findViewById(R.id.tv_room_name)
+        val roomPrice: TextView = itemview.findViewById(R.id.tv_room_price)
+        val roomImg: ImageView = itemview.findViewById(R.id.img_room)
+        val hotelAddress: TextView = itemview.findViewById(R.id.hotel_address)
+        val roomRate: RatingBar = itemview.findViewById(R.id.rating_bar)
         init {
             itemView.setOnClickListener{
                 clickListener.onItemClick(adapterPosition)
+                val position = adapterPosition
+                val context = itemView.context
+
+                val intent = Intent(context, DetailsActivity::class.java).apply {
+                    putExtra("roomName", ds[position].roomName)
+                    putExtra("roomPrice", ds[position].roomPrice)
+                    putExtra("hotelAddress", ds[position].hotelAddress)
+                    putExtra("roomRating", ds[position].roomRating)
+                    putExtra("roomImage", ds[position].roomImage)
+                }
+                context.startActivity(intent)
             }
         }
-        private val roomName: TextView = itemview.findViewById(R.id.tv_room_name)
-        private val roomPrice: TextView = itemview.findViewById(R.id.tv_room_price)
-        private val roomImg: ImageView = itemview.findViewById(R.id.img_room)
-        private val hotelAddress: TextView = itemview.findViewById(R.id.hotel_address)
-        private val roomRate: RatingBar = itemview.findViewById(R.id.rating_bar)
+
 
         fun bind(rooms: Room) {
             roomName.text = rooms.roomName

@@ -35,7 +35,7 @@ class DetailsActivity : AppCompatActivity() {
         } else {
             // Set default image or hide image view
             // For example, set a default image from resources:
-            binding.hotelImg.setImageResource(R.drawable.pic1)
+            binding.hotelImg.setImageResource(R.drawable.pic2)
         }
     }
 
