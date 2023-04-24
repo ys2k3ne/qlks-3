@@ -3,6 +3,7 @@ package com.example.easyhotel
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.RatingBar
@@ -36,8 +37,8 @@ class DetailsActivity : AppCompatActivity() {
         bookButton = findViewById(R.id.book_button)
 
         // Lấy thông tin về khách sạn từ intent và hiển thị lên các view
-        val room: Room? = if (intent.hasExtra("room")) {
-            intent.getSerializableExtra("room") as? Room
+        val room: Room? = if (intent.hasExtra("hotels")) {
+            intent.getSerializableExtra("hotels") as? Room
         } else {
             null
         }
@@ -60,9 +61,21 @@ class DetailsActivity : AppCompatActivity() {
 
         // Sự kiện khi click vào nút "Đặt phòng"
         bookButton.setOnClickListener {
-            val intent = Intent(Intent.ACTION_DIAL)
-            intent.data = Uri.parse("tel:123456789")
-            startActivity(intent)
+            bookRoom(it)
         }
+
     }
+
+    // Hàm xử lý sự kiện khi người dùng ấn vào nút "Đặt phòng"
+    fun bookRoom(view: View) {
+        // Lấy thông tin của phòng từ Intent gửi đến DetailActivity
+        val room: Room? = intent.getSerializableExtra("hotels") as? Room
+        val roomId = room?.roomId ?: ""
+        val roomName = room?.roomName ?: ""
+
+        // Tạo một đối tượng BookingDialogFragment và hiển thị
+        val bookingDialogFragment = BookingDialogFragment.newInstance(roomId, roomName)
+        bookingDialogFragment.show(supportFragmentManager, "BookingDialog")
+    }
+
 }

@@ -92,7 +92,9 @@
                 android:background="@drawable/btn"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="bookRoom"/>
+
 
         </LinearLayout>
 </LinearLayout>
