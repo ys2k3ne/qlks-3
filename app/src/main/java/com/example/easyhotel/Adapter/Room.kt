@@ -7,6 +7,8 @@ class Room {
     var roomPrice: String = ""
     var roomRating: Float = 0f
     var roomImage: String = ""
+    var description: String = ""
+    var available: Boolean = false
 
     constructor()
 
@@ -16,7 +18,9 @@ class Room {
         hotelAddress: String,
         roomPrice: String,
         roomRating: Float,
-        roomImage: String
+        roomImage: String,
+        description: String,
+        available: Boolean
     ) {
         this.roomId = roomId
         this.roomName = roomName
@@ -24,5 +28,7 @@ class Room {
         this.roomPrice = roomPrice
         this.roomRating = roomRating
         this.roomImage = roomImage
+        this.description = description
+        this.available = available
     }
 }

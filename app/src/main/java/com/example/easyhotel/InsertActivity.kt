@@ -14,13 +14,14 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 class InsertActivity : AppCompatActivity() {
-    private lateinit var dbRef : DatabaseReference
-    private lateinit var btnSave : Button
-    private lateinit var edtName : EditText
-    private lateinit var edtPrice : EditText
-    private lateinit var edtAdd : EditText
-    private lateinit var edtPrdImg : EditText
-    private lateinit var rate : RatingBar
+    private lateinit var dbRef: DatabaseReference
+    private lateinit var btnSave: Button
+    private lateinit var edtName: EditText
+    private lateinit var edtPrice: EditText
+    private lateinit var edtAdd: EditText
+    private lateinit var edtImg: EditText
+    private lateinit var ratingBar: RatingBar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_insert)
@@ -29,41 +30,42 @@ class InsertActivity : AppCompatActivity() {
         edtName = findViewById(R.id.edtNameHotel)
         edtPrice = findViewById(R.id.edtPriceHotel)
         edtAdd = findViewById(R.id.edtAddressHotel)
-        edtPrdImg = findViewById(R.id.edtPrdImg)
-        rate = findViewById(R.id.ratingBar)
+        edtImg = findViewById(R.id.edtPrdImg)
+        ratingBar = findViewById(R.id.ratingBar)
         dbRef = FirebaseDatabase.getInstance().getReference("hotels")
 
-        // xử lí sự kiện khi click vòa nút save
+        // Xử lý sự kiện khi click vào nút save
         btnSave.setOnClickListener {
-            saveProductData()
+            saveRoomData()
         }
     }
 
-    private fun saveProductData() {
+    private fun saveRoomData() {
         // Lấy dữ liệu
-        val hotelName = edtName.text.toString()
-        val hotelPrice = edtPrice.text.toString()
-        val hotelAdd = edtAdd.text.toString()
-        val hotelImg = edtPrdImg.text.toString()
-        val rating : Float = rate.rating
+        val roomName = edtName.text.toString()
+        val roomPrice = edtPrice.text.toString()
+        val hotelAddress = edtAdd.text.toString()
+        val roomImage = edtImg.text.toString()
+        val roomRating = ratingBar.rating
 
         // Kiểm tra dữ liệu có hợp lệ không
-        if (hotelName.isEmpty() || hotelPrice.isEmpty() || hotelAdd.isEmpty() || hotelImg.isEmpty() ) {
+        if (roomName.isEmpty() || roomPrice.isEmpty() || hotelAddress.isEmpty() || roomImage.isEmpty()) {
             Toast.makeText(this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show()
             return
         }
 
         // Đẩy dữ liệu vào Firebase Database
-        val hotelId = dbRef.push().key!!
-        val hotel = Room(hotelId, hotelName, hotelAdd, hotelPrice, rating , hotelImg )
-        dbRef.child(hotelId).setValue(hotel)
+        val roomId = dbRef.push().key!!
+        val room = Room(roomId, roomName, hotelAddress, roomPrice, roomRating, roomImage, "", true)
+        dbRef.child(roomId).setValue(room)
             .addOnCompleteListener{
                 // Đẩy thành công, chuyển về trang danh sách
                 Toast.makeText(this, "Thêm thành công", Toast.LENGTH_SHORT).show()
                 edtName.setText("")
                 edtPrice.setText("")
                 edtAdd.setText("")
-                edtPrdImg.setText("")
+                edtImg.setText("")
+                ratingBar.rating = 0f
                 val intent = Intent(this, RoomListActivity::class.java)
                 startActivity(intent)
             }

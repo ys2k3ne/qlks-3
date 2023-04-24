@@ -1,46 +1,68 @@
 package com.example.easyhotel
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import com.example.easyhotel.databinding.ActivityDetailsBinding
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.RatingBar
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.example.easyhotel.Adapter.Room
 import com.squareup.picasso.Picasso
 
-private lateinit var binding: ActivityDetailsBinding
 class DetailsActivity : AppCompatActivity() {
+
+    private lateinit var hotelImg: ImageView
+    private lateinit var hotelName: TextView
+    private lateinit var hotelPrice: TextView
+    private lateinit var hotelAddress: TextView
+    private lateinit var hotelDesc: TextView
+    private lateinit var hotelRatingBar: RatingBar
+    private lateinit var hotelStatus: TextView
+    private lateinit var bookButton: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDetailsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_details)
 
-        setValueToView()
-    }
+        hotelImg = findViewById(R.id.hotel_img)
+        hotelName = findViewById(R.id.hotel_name_text_view)
+        hotelPrice = findViewById(R.id.hotel_price_text_view)
+        hotelAddress = findViewById(R.id.hotel_address)
+        hotelDesc = findViewById(R.id.motaHotel)
+        hotelRatingBar = findViewById(R.id.hotelRatingBar)
+        hotelStatus = findViewById(R.id.hotel_status)
+        bookButton = findViewById(R.id.book_button)
 
-    private fun setValueToView() {
-        val roomName = intent.getStringExtra("roomName")
-        val hotelAddress = intent.getStringExtra("hotelAddress")
-        val roomPrice = intent.getStringExtra("roomPrice")
-        val roomRating = intent.getFloatExtra("roomRating", 0f)
-        val roomImage = intent.getStringExtra("roomImage")
-
-        binding.hotelNameTextView.text = roomName
-        binding.hotelAddress.text = hotelAddress
-        binding.hotelPriceTextView.text = roomPrice
-        binding.hotelRatingBar.rating = roomRating
-
-        if (roomImage != null) {
-            // Load image from Firebase URL using Picasso
-            Picasso.get()
-                .load(roomImage)
-                .into(binding.hotelImg)
+        // Lấy thông tin về khách sạn từ intent và hiển thị lên các view
+        val room: Room? = if (intent.hasExtra("room")) {
+            intent.getSerializableExtra("room") as? Room
         } else {
-            // Set default image or hide image view
-            // For example, set a default image from resources:
-            binding.hotelImg.setImageResource(R.drawable.pic2)
+            null
+        }
+        if (room != null) {
+            // Load image from Firebase URL using Picasso
+            val imgUrl = room.roomImage
+            Picasso.get()
+                .load(imgUrl)
+                .fit()
+                .centerCrop()
+                .into(hotelImg)
+
+            hotelName.text = room.roomName
+            hotelPrice.text = "Giá: ${room.roomPrice} VND"
+            hotelAddress.text = "Địa chỉ: ${room.hotelAddress}"
+            hotelRatingBar.rating = room.roomRating
+            hotelDesc.text = room?.description
+            hotelStatus.text = if (room?.available == true) "Trạng thái: available" else "Trạng thái: not available"
+        }
+
+        // Sự kiện khi click vào nút "Đặt phòng"
+        bookButton.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:123456789")
+            startActivity(intent)
         }
     }
-
-
-
-    // set giá trị cho các thành phần khác
-    }
-
+}

@@ -76,6 +76,14 @@
                 android:numStars="5"
                 android:stepSize="0.5" />
 
+            <TextView
+                android:id="@+id/hotel_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Trạng thái: available"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
             <Button
                 android:id="@+id/book_button"
                 android:layout_width="match_parent"
