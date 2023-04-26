@@ -4,18 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#959D9F"
+        android:background="@color/white"
         android:padding="16dp">
 
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/ic_logooo" />
+            android:src="@drawable/ic_logoo" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,13 +27,11 @@
                 android:layout_height="wrap_content"
                 android:text="Danh sách khách sạn"
                 android:textSize="24sp"
-                android:textColor="#EAEAEA"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#EAEAEA"
                 android:text="Tìm kiếm khách sạn theo giá, địa điểm, điểm đánh giá, v.v."
                 android:textSize="16sp" />
         </LinearLayout>
@@ -44,82 +41,64 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:padding="16dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bộ lọc:"
-            android:paddingLeft="16dp"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <CheckBox
-            android:id="@+id/filter_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hiển thị khách sạn có sẵn phòng"
-            android:layout_marginStart="16dp"/>
-
-<!--        <TextView-->
-<!--            android:id="@+id/filter_tv"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="@drawable/btn"-->
-<!--            android:gravity="center"-->
-<!--            android:text="OK"-->
-<!--            android:textColor="@color/blackcolor"-->
-<!--            android:textStyle="bold"-->
-<!--            android:layout_marginStart="16dp"/>-->
-        <Button
-            android:id="@+id/filter_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="OK" />
+        <!-- Add filter buttons and options here -->
 
     </LinearLayout>
 
-
     <!-- Hotel list -->
-
-    <!-- Pagination -->
-
-    <!-- Share and favorite buttons -->
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@color/white">-->
-
-<!--        <Button-->
-<!--            android:id="@+id/share_button"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Chia sẻ" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/favorite_button"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:text="Yêu thích" />-->
-
-<!--    </LinearLayout>-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/hotel_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
+    <!-- Pagination -->
+    <Button
+        android:id="@+id/next_page_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Xem thêm" />
+
+    <!-- Share and favorite buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/share_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chia sẻ" />
+
+        <Button
+            android:id="@+id/favorite_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Yêu thích" />
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
-        android:paddingLeft="16dp">
-        <!-- Footer -->
-        <!-- Footer -->
+        android:padding="16dp">
+    <!-- Footer -->
+    <!-- Footer -->
 
 
         <TextView
